@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/favicon.png">
+    <title>JungDy | Login Page</title>
+    
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <!-- tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.575rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            margin-bottom: 0.7rem;
+        }
+        .label {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
+        .container {
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            width: 500px;
+            margin: auto;
+            margin-top: 60px;
+
+        }
+        .logo {
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">JUNGDY</div>
+        <form>
+            <label for="username" class="label">ID</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Jane">
+
+            <label for="password" class="label">PW</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Smitherton">
+
+            <a href="./front/homepage.html" class="block mt-3"></a>
+            <button type="submit" class="mt-3 bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded w-full">
+                Login
+            </button>
+            
+            <a href="./front/signup.html" class="block mt-3">
+            <button type="button" class="mt-3 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full">
+                Sign up
+            </button>
+            </a>
+        </form>
+    </div>
+
+    </body>
+</html>

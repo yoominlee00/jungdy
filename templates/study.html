@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JungDy | 스터디 목록</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .category-button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .category-button.selected {
+            background-color: black;
+            color: white;
+        }
+
+        .date-navigation a {
+            padding: 10px 15px;
+            border: 1px solid black;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+
+        .study-card {
+            background-color: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            width: 48%;
+            display: inline-block;
+            margin: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .study-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .participation-button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-join { background-color: red; }
+        .btn-join:hover { background-color: darkred; }
+        .btn-full { background-color: gray; }
+        .btn-active { background-color: green; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- 상단 네비게이션 -->
+    <div class="bg-black text-white p-4 flex justify-between items-center">
+        <div class="text-xl font-bold">JungDy</div>
+        <div>
+            <a href="{{ url_for('study.home', category='frontend', date=today) }}" 
+               class="category-button {% if category == 'frontend' %}selected{% endif %}">Frontend</a>
+            <a href="{{ url_for('study.home', category='backend', date=today) }}" 
+               class="category-button {% if category == 'backend' %}selected{% endif %}">Backend</a>
+        </div>
+        <a href="{{ url_for('user.mypage') }}" class="bg-gray-600 text-white px-4 py-2 rounded">마이페이지</a>
+    </div>
+
+    <!-- 날짜 네비게이션 -->
+    <div class="text-center mt-6">
+        <div class="date-navigation">
+            <a href="{{ url_for('study.home', category=category, date=prev_date) }}">◀️ 이전</a>
+            <span class="text-xl font-semibold mx-4">{{ today }}</span>
+            <a href="{{ url_for('study.home', category=category, date=next_date) }}">다음 ▶️</a>
+        </div>
+    </div>
+
+    <!-- 스터디 목록 -->
+    <div class="container mx-auto p-6">
+        <div class="bg-gray-300 p-6 rounded">
+            <h2 class="text-2xl font-semibold mb-4">스터디 목록</h2>
+            
+            <div class="flex flex-wrap justify-between">
+                {% for study in studies %}
+                <div class="study-card">
+                    <div class="study-title">{{ study.study_name }}</div>
+                    <div class="text-sm text-gray-600">
+                        {{ study.start_time }} ~ {{ study.end_time }}
+                    </div>
+                    <div class="text-sm mt-2">
+                        참여 인원: {{ study.current_participants }}/{{ study.max_participants }}
+                    </div>
+                    <div class="mt-4">
+                        {% if study.participation_status == "참여중" %}
+                            <button class="participation-button btn-active">참여중</button>
+                        {% elif study.participation_status == "참여마감" %}
+                            <button class="participation-button btn-full">참여마감</button>
+                        {% else %}
+                            <form action="{{ url_for('study.join_study', study_id=study._id) }}" method="POST">
+                                <button type="submit" class="participation-button btn-join">참여하기</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!--signup.html-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/favicon.png">
+    <title>JungDy | SignUp Page</title>
+    
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+    <!-- tailwind -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+        h1 {
+            font-size: 50px; 
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 80px; /* 더 작은 마진으로 조정 */
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.575rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            margin-bottom: 0.7rem;
+        }
+
+        .label {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
+
+        .container {
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            width: 500px; /* 너비를 증가 */
+            margin: auto;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form>
+            <label for="Username" class="label">Username</label>
+            <input type="text" id="Username" name="Username" class="form-control" placeholder="Jane">
+
+            <label for="ID" class="label">ID</label>
+            <input type="text" id="ID" name="ID" class="form-control" placeholder="Jane">
+
+            <label for="password" class="label">PW</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Smitherton">
+
+            <a href="./front/Login.html" class="block mt-3">
+                <button type="button" class="mt-3 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full">
+                    Sign up
+                </button>
+            </a>
+        </form>
+    </div>
+</body>
+</html>
