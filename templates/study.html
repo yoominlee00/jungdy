@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,14 +18,14 @@
     * {
       font-family: 'Roboto', sans-serif;
     }
-    
+
     .modal-content h1 {
       font-size: 2.25rem;
       font-weight: bold;
       color: #333;
       margin-bottom: 1rem;
     }
-    
+
     .category-button {
       padding: 10px 20px;
       border-radius: 5px;
@@ -32,7 +33,7 @@
       cursor: pointer;
       transition: 0.3s;
     }
-    
+
     #study-container {
       padding: 20px;
       width: 100%;
@@ -41,17 +42,17 @@
       overflow: auto;
       height: auto;
     }
-    
+
     .category-button.selected {
       background-color: black;
       color: white;
     }
-    
+
     .date-navigation a {
       padding: 10px 15px;
       margin: 0 10px;
     }
-    
+
     /* 스터디 카드 디자인: 검은색 박스, 흰색 텍스트 */
     .study-card {
       background-color: #000;
@@ -64,24 +65,28 @@
       transition: transform 0.3s ease;
       cursor: pointer;
     }
-    
+
     /* 카드 기본정보 영역 */
     .study-basic {
       padding: 20px;
     }
+
     /* 스터디명은 강조 색상 적용 */
     .study-title {
       font-size: 22px;
       font-weight: bold;
-      color: #ffcc00; /* 강조 색상 (노란빛) */
+      color: #ffcc00;
+      /* 강조 색상 (노란빛) */
       margin-bottom: 10px;
     }
+
     /* 기본 정보 라벨(예: 인원수, 시간)은 약간 다른 색상과 굵게 */
     .info-label {
       font-weight: bold;
-      color: #f578d8; /* 약간의 핑크 계열 */
+      color: #f578d8;
+      /* 약간의 핑크 계열 */
     }
-    
+
     /* 숨겨진 추가 정보 영역 (호버 시 표시) */
     .additional-info {
       padding: 20px;
@@ -89,16 +94,17 @@
       display: none;
       border-top: 1px solid #333;
     }
-    
+
     /* 카드 호버 시 효과 */
     .study-card:hover {
       transform: scale(1.03);
     }
+
     /* 마우스 올렸을 때 추가 정보 표시 */
     .study-card:hover .additional-info {
       display: block;
     }
-    
+
     .participation-button {
       border: none;
       padding: 10px 20px;
@@ -106,25 +112,26 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    
+
     .btn-join {
       background-color: red;
       color: #fff;
     }
+
     .btn-join:hover {
       background-color: darkred;
     }
-    
+
     .btn-full {
       background-color: gray;
       color: #fff;
     }
-    
+
     .btn-active {
       background-color: green;
       color: #fff;
     }
-    
+
     .add-button {
       font-size: 30px;
       padding: 10px 20px;
@@ -137,10 +144,11 @@
       right: 20px;
       transition: background-color 0.3s;
     }
+
     .add-button:hover {
       background-color: #45a049;
     }
-    
+
     .modal {
       display: none;
       position: fixed;
@@ -152,7 +160,7 @@
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.4);
     }
-    
+
     .modal-content {
       background-color: #fefefe;
       margin: 15% auto;
@@ -160,7 +168,7 @@
       border: 2px solid #888;
       width: 80%;
     }
-    
+
     .form-con {
       display: block;
       width: 100%;
@@ -174,24 +182,26 @@
       transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
       margin-bottom: 0.7rem;
     }
-    
+
     .close {
       color: #aaa;
       float: right;
       font-size: 28px;
       font-weight: bold;
     }
+
     .close:hover,
     .close:focus {
       color: black;
       text-decoration: none;
       cursor: pointer;
     }
-    
+
     .category-button:hover {
       background-color: #4CAF50;
       color: white;
     }
+
     .category-button.selected {
       background-color: rgb(255, 255, 255);
       color: rgb(24, 24, 24);
@@ -219,7 +229,7 @@
         const url = "{{ url_for('study.home', category=category, date='__date__') }}".replace('__date__', newDate);
         window.location.href = url;
       });
-      
+
       $(window).scroll(function () {
         if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
           loadMoreData();
@@ -237,7 +247,7 @@
           }
         });
       }
-      
+
       var modal = document.getElementById('createStudyModal');
       var btn = document.getElementById('myBtn');
       var span = document.getElementsByClassName("close")[0];
@@ -254,7 +264,7 @@
       }
     });
   </script>
-  
+
 </head>
 
 <body>
@@ -263,9 +273,9 @@
       <h1 class="text-lg font-bold">JungDy</h1>
       <div>
         <a href="{{ url_for('study.home', category='frontend', date=today) }}"
-           class="category-button {% if category == 'frontend' %}selected{% endif %}">Frontend</a>
+          class="category-button {% if category == 'frontend' %}selected{% endif %}">Frontend</a>
         <a href="{{ url_for('study.home', category='backend', date=today) }}"
-           class="category-button {% if category == 'backend' %}selected{% endif %}">Backend</a>
+          class="category-button {% if category == 'backend' %}selected{% endif %}">Backend</a>
       </div>
       <div class="relative">
         <button class="mx-2 px-4 py-2 rounded bg-gray-800 focus:outline-none" id="dropdownButton">
@@ -273,12 +283,13 @@
         </button>
         <div class="absolute hidden text-left bg-white shadow-md rounded mt-1" id="dropdownMenu">
           <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">내스터디</a>
-          <a href="#" id="logoutButton" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">로그아웃</a>
+          <a href="#" id="logoutButton"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">로그아웃</a>
         </div>
       </div>
     </div>
   </div>
-  
+
   <!-- 날짜 네비게이션 -->
   <div class="text-center mt-6 mb-4">
     <div class="date-navigation">
@@ -287,7 +298,7 @@
       <a href="{{ url_for('study.home', category=category, date=next_date) }}"> ▶️</a>
     </div>
   </div>
-  
+
   <!-- 스터디 목록 -->
   <div id="study-container" class="bg-gray-300">
     {% if studies %}
@@ -329,10 +340,10 @@
       <p class="text-xl font-semibold">일정이 없습니다.</p>
     </div>
     {% endif %}
-    
+
     <!-- 새로운 카드 생성 버튼 -->
     <button id="myBtn" class="add-button">+</button>
-    
+
     <!-- 스터디 만들기 모달 -->
     <div id="createStudyModal" class="modal">
       <div class="modal-content">
@@ -367,14 +378,18 @@
           <input type="number" id="max_participants" name="max_participants" class="form-con" required>
           <br><br>
           <label for="study_content">스터디 내용:</label>
-          <textarea id="study_content" name="study_content" class="form-con" placeholder="내용을 입력하세요." style="width: 100%; height: 80px; overflow-y: auto; overflow-x: hidden; resize: vertical;" required></textarea>
+          <textarea id="study_content" name="study_content" class="form-con" placeholder="내용을 입력하세요."
+            style="width: 100%; height: 80px; overflow-y: auto; overflow-x: hidden; resize: vertical;"
+            required></textarea>
           <br><br>
-          <button type="submit" class="mt-3 bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-4 rounded w-full">스터디생성</button>
+          <button type="submit"
+            class="mt-3 bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-4 rounded w-full">스터디생성</button>
         </form>
       </div>
     </div>
-    
+
   </div>
-  
+
 </body>
+
 </html>
