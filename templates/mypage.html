@@ -166,10 +166,79 @@
         .update-button {
             margin: 10px;
         }
+
+        /* //////////////////////////////수정모달///////////////////////////////////////////////// */
+        .modal {
+            display: none;
+            position: fixed;
+            /* position: center는 유효하지 않으므로 fixed 사용 */
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            /* 상단 여백을 줄여 새스터디창을 윗쪽으로 이동 */
+            padding: 30px;
+            border: 2px solid #888;
+            width: 25%;
+        }
+
+
+        .form-con {
+            display: block;
+            width: 100%;
+            padding: 0.575rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            margin-bottom: 0.7rem;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 
     <script>
+        $(document).ready(function () {
 
+            //////////////////모달////////////////////////////////////////////////
+            var modal = document.getElementById('updateStudyModal');
+            var btn = document.getElementById('update-button');
+            var span = document.getElementsByClassName("close")[0];
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
     </script>
 
 </head>
@@ -248,78 +317,68 @@
                         </div>
 
                         <div class="button-area">
-                            <button
+                            <button id="delete-button"
                                 class="delete-button px-6 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">Delete</button>
-                            <button
+                            <button id="update-button"
                                 class="update-button px-6 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Update</button>
                         </div>
                     </div>
                 </div>
                 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-
-                <div class="study-card">
-
-                    <div class="study-card p-1 bg-white rounded shadow cursor-pointer"> <!-- 호버시 커서변경 -->
-
-                        <div class="study-basic">
-                            <div class="study-title text-lg font-bold">HTTP & REST API</div>
-                            <div class="text-sm mt-2">
-                                <span class="info-label">인원수:</span> 4/10
+                <!-- 스터디 수정 모달 -->
+                <div id="updateStudyModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h1>스터디 수정하기</h1>
+                        <br><br>
+                        <form action="{{ url_for('study.update_study') }}" method="POST">
+                            <label for="study_name" class="label">스터디명:</label>
+                            <input type="text" id="study_name" name="study_name" class="form-con" required>
+                            <br><br>
+                            <label>카테고리:</label>
+                            <div>
+                                <input type="radio" id="frontend" name="category" value="frontend" checked>
+                                <label for="frontend" style="margin-right: 20px;">Frontend</label>
+                                <input type="radio" id="backend" name="category" value="backend">
+                                <label for="backend">Backend</label>
                             </div>
-                            <div class="text-sm">
-                                <span class="info-label">시간:</span> 15:00~17:00
-                            </div>
-                        </div>
-
-                        <!-- 클릭 시 추가정보 -->
-                        <div class="additional-info hidden">
-                            <div class="text-sm mt-2"><span class="info-label"></span> 장소: 교육동 라운지</div>
-                            <div class="text-sm"><span class="info-label">스터디 내용:</span> 맛있는 돈까스~</div>
-                        </div>
-
-                        <div class="button-area">
-                            <button
-                                class="delete-button px-6 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">Delete</button>
-                            <button
-                                class="update-button px-6 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Update</button>
-                        </div>
-
+                            <br><br><br>
+                            <label for="study_date">날짜:</label>
+                            <input type="date" id="study_date" name="study_date" required>
+                            <br><br><br>
+                            <label for="start_time">시작 시간:</label>
+                            <input type="time" id="start_time" name="start_time" required>
+                            <br><br><br>
+                            <label for="end_time">종료 시간:</label>
+                            <input type="time" id="end_time" name="end_time" required>
+                            <br><br><br>
+                            <label for="location">장소:</label>
+                            <input type="text" id="location" name="location" class="form-con" required>
+                            <br><br><br>
+                            <label for="max_participants">최대 인원:</label>
+                            <input type="number" id="max_participants" name="max_participants" class="form-con"
+                                required>
+                            <br><br>
+                            <label for="study_content">스터디 내용:</label>
+                            <textarea id="study_content" name="study_content" class="form-con" placeholder="내용을 입력하세요."
+                                style="width: 100%; height: 80px; overflow-y: auto; overflow-x: hidden; resize: vertical;"
+                                required></textarea>
+                            <br><br>
+                            <button type="submit"
+                                class="mt-3 bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-4 rounded w-full">수정완료</button>
+                        </form>
                     </div>
-
                 </div>
 
-                <div class="study-card">
 
-                    <div class="study-card p-1 bg-white rounded shadow cursor-pointer"> <!-- 호버시 커서변경 -->
 
-                        <div class="study-basic">
-                            <div class="study-title text-lg font-bold">HTTP & REST API</div>
-                            <div class="text-sm mt-2">
-                                <span class="info-label">인원수:</span> 4/10
-                            </div>
-                            <div class="text-sm">
-                                <span class="info-label">시간:</span> 15:00~17:00
-                            </div>
-                        </div>
+                <!-- ////////////////////////////////////////////////////////////////////////////                -->
 
-                        <!-- 클릭 시 추가정보 -->
-                        <div class="additional-info hidden">
-                            <div class="text-sm mt-2"><span class="info-label"></span> 장소: 교육동 라운지</div>
-                            <div class="text-sm"><span class="info-label">스터디 내용:</span> 맛있는 돈까스~</div>
-                        </div>
 
-                        <div class="button-area">
-                            <button
-                                class="delete-button px-6 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">Delete</button>
-                            <button
-                                class="update-button px-6 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">Update</button>
-                        </div>
-
-                    </div>
-
-                </div>
             </div>
+
+
+        </div>
         </div>
 
 
@@ -357,41 +416,16 @@
                     </div>
                 </div>
 
-                <div class="study-card">
-                    <div class="study-card p-1 bg-white rounded shadow cursor-pointer"> <!-- 호버시 커서변경 -->
 
-                        <div class="study-basic">
-                            <div class="study-title text-lg font-bold">HTTP & REST API</div>
-                            <div class="text-sm mt-2">
-                                <span class="info-label">인원수:</span> 4/10
-                            </div>
-                            <div class="text-sm">
-                                <span class="info-label">시간:</span> 15:00~17:00
-                            </div>
-                        </div>
+            </div>
 
-                        <!-- 클릭 시 추가정보 -->
-                        <div class="additional-info hidden">
-                            <div class="text-sm mt-2"><span class="info-label"></span> 장소: 교육동 라운지</div>
-                            <div class="text-sm"><span class="info-label">스터디 내용:</span> 맛있는 돈까스~</div>
-                        </div>
-                    </div>
-
-                    <div class="button-area">
-                        <button
-                            class="Out-button px-6 py-2.5 border-2 border-green-500 text-green-500 rounded-lg hover:bg-green-50 transition-colors">나가기</button>
-
-                    </div>
+            <div id="Calender">
+                <div class="title">
+                    <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+                        Calender
+                    </h1>
                 </div>
             </div>
-        </div>
-
-        <div id="Calender">
-            <div class="title">
-                <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Calender
-                </h1>
-            </div>
-        </div>
 
     </main>
 </body>
