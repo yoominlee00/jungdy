@@ -29,7 +29,7 @@ def signup():
 @user_bp.route('/', methods=['GET', 'POST'])
 def login():
     if 'user_id' in session:  # 이미 로그인한 경우, 메인 화면으로 리디렉션
-        return redirect(url_for('study.home'))  # ✅ 'study.home'이 존재하는지 확인 필요!
+        return redirect(url_for('study.home'))  #'study.home'이 존재하는지 확인 필요!
      
     if request.method == 'POST':
         user_id = request.form['user_id']
@@ -55,6 +55,7 @@ def login():
     return render_template('login.html')
 
 
+
 @user_bp.route('/mypage', methods=['GET'])
 def mypage():
     if 'user_id' not in session:
@@ -68,7 +69,7 @@ def mypage():
         flash("사용자 정보를 찾을 수 없습니다.", "danger")
         return redirect(url_for('user.login'))
 
-    return render_template('mypage.html', user=user)  # ✅ mypage.html 렌더링
+    return render_template('mypage.html', user=user)  # mypage.html 렌더링
 
 
 @user_bp.route('/logout')
